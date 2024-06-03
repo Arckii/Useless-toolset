@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bionic Reading Air</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        header {
+            width: 100%;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        main {
+            display: flex;
+            padding: 20px;
+            flex: 1;
+        }
+        textarea {
+            width: 45%;
+            height: 90%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            margin-right: 5%;
+        }
+        #output {
+            width: 45%;
+            height: 90%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+            overflow: auto;
+        }
+        .bionic {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>Bionic Reading Air</header>
+    <main>
+        <textarea id="input" placeholder="Type your text here..."></textarea>
+        <div id="output"></div>
+    </main>
+
+    <script>
+        function bionicReading(text) {
+            return text.split(' ').map(word => {
+                if (word.length <= 1) {
+                    return word; // Do not bold single-letter words
+                } else if (word.length <= 3) {
+                    return `<span class="bionic">${word.charAt(0)}</span>${word.slice(1)}`;
+                } else {
+                    let midpoint = Math.ceil(word.length / 2);
+                    return `<span class="bionic">${word.slice(0, midpoint)}</span>${word.slice(midpoint)}`;
+                }
+            }).join(' ');
+        }
+
+        document.getElementById('input').addEventListener('input', function() {
+            let text = this.value;
+            document.getElementById('output').innerHTML = bionicReading(text);
+        });
+    </script>
+</body>
+</html>
